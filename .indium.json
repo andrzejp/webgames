@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "name": "Web project",
+            "type": "chrome",
+            "host": "localhost",
+	    "scriptPathOverrides": {
+		"~andrzej/" : ""
+	    },
+            "url": "http://localhost/~andrzej/index.html",
+            "port": 9222
+        }
+    ]
+}
