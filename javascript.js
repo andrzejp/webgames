@@ -60,12 +60,28 @@ var goal = {
     h: 36
 };
 
+var sprites = {};
+
 function movePlayer() {
     player.isMoving = true;
 }
 
 function stopPlayer() {
     player.isMoving = false;
+}
+
+function load() {
+    sprites.player = new Image();
+    sprites.player.src = 'images/hero.png';
+
+    sprites.background = new Image();
+    sprites.background.src = 'images/floor.png';
+
+    sprites.enemy = new Image();
+    sprites.enemy.src = 'images/enemy.png';
+
+    sprites.goal = new Image();
+    sprites.goal.src = 'images/chest.png';
 }
 
 //update the logic
@@ -123,19 +139,19 @@ var draw = function() {
     //clear the canvas
     ctx.clearRect(0,0,GAME_WIDTH,GAME_HEIGHT);
 
+    //draw background
+    ctx.drawImage(sprites.background, 0, 0);
+
     //draw player
-    ctx.fillStyle = "#00FF00";
-    ctx.fillRect(player.x, player.y, player.w, player.h);
+    ctx.drawImage(sprites.player, player.x, player.y);
 
-    ctx.fillStyle = "#3333FF";
-
-    enemies.forEach(function(element, index){
-        ctx.fillRect(element.x, element.y, element.w, element.h);
+    //draw enemies
+    enemies.forEach(enemy => {
+	ctx.drawImage(sprites.enemy, enemy.x, enemy.y);
     });
 
     //draw goal
-    ctx.fillStyle = "rgb(128, 128, 0)";
-    ctx.fillRect(goal.x, goal.y, goal.w, goal.h);
+    ctx.drawImage(sprites.goal, goal.x, goal.y);
 };
 
 //gets executed multiple times per second
@@ -168,5 +184,6 @@ window.addEventListener('load', () => {
     canvas.addEventListener('touchstart', movePlayer);
     canvas.addEventListener('touchend', stopPlayer);
 
+    load();
     step();
 });
